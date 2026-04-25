@@ -1,17 +1,15 @@
-# ColdFutureSys Lab
+# Password Generator v1
 
-Experimental Python systems, automation tools, and interactive terminal projects.
+Simple Python utility that generates randomized passwords using words, numbers, and symbols.
 
-## Current Projects
+## Features
 
-- tiny house.ipynb
-- system_scanner.py
-- ideas.md
+- Random word selection
+- Random numbers
+- Random symbols
+- Interactive menu system
 
-## Focus Areas
+## Run
 
-- Python fundamentals
-- Interactive terminal systems
-- File handling
-- Automation
-- Experimental tooling
+```bash
+python password_generator.py
