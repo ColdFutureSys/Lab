@@ -1,15 +1,21 @@
-# Password Generator v1
+# Lab
 
-Simple Python utility that generates randomized passwords using words, numbers, and symbols.
+Experimental tools, automation projects, notebooks, and system utilities.
 
-## Features
+## Structure
 
-- Random word selection
-- Random numbers
-- Random symbols
-- Interactive menu system
+- `tools/` → Python utilities and scripts
+- `notebooks/` → experiments and prototypes
+- `docs/` → ideas and notes
+- `projects/` → larger builds
+- `assets/` → images and supporting files
 
-## Run
+## Current Projects
 
-```bash
-python password_generator.py
+- Password Generator
+- System Scanner
+- Tiny Game Prototype
+
+## Goal
+
+Build useful systems, learn aggressively, and experiment with automation and software design.
