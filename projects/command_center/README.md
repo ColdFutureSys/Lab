@@ -1,3 +1,15 @@
 # Command Center
 
-Future automation and monitoring system.
+A future control system for automation, monitoring, and utilities.
+
+## Planned Features
+
+- System monitoring
+- Automation tools
+- AI integrations
+- Notification systems
+- Dashboard interface
+
+## Status
+
+Early planning phase.
