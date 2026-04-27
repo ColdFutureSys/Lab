@@ -19,9 +19,15 @@ while True:
         tasks.append(new_task)
         print("Task added.")
 
-    elif choice == "3":
-        print("Goodbye.")
-        break
+ elif choice == "3":
+    completed = input("Task to complete: ")
 
+    if completed in tasks:
+        tasks.remove(completed)
+        print("Task completed.")
     else:
-        print("Invalid option.")
+        print("Task not found.")
+
+elif choice == "4":
+    print("Goodbye.")
+    break 
