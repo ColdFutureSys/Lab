@@ -21,8 +21,13 @@ while True:
             print("-", task)
 
     elif choice == "2":
-        new_task = input("Enter task: ")
         tasks.append(new_task)
+
+with open("tasks.txt", "w") as file:
+    for task in tasks:
+        file.write(task + "\n")
+
+print("Task added.")
         print("Task added.")
 
  elif choice == "3":
@@ -30,7 +35,12 @@ while True:
 
     if completed in tasks:
         tasks.remove(completed)
-        print("Task completed.")
+
+with open("tasks.txt", "w") as file:
+    for task in tasks:
+        file.write(task + "\n")
+
+print("Task completed.")
     else:
         print("Task not found.")
 
