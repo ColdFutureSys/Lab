@@ -4,7 +4,8 @@ while True:
     print("\n=== PLANNER ===")
     print("1. View Tasks")
     print("2. Add Task")
-    print("3. Exit")
+    print("3. Complete Task")
+    print("4. Exit")
 
     choice = input("Choose: ")
 
