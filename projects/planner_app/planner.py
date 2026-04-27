@@ -1,4 +1,10 @@
+import os
+
 tasks = []
+
+if os.path.exists("tasks.txt"):
+    with open("tasks.txt", "r") as file:
+        tasks = file.read().splitlines()
 
 while True:
     print("\n=== PLANNER ===")
