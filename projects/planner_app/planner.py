@@ -30,15 +30,14 @@ full_task = f"[{priority}] {new_task} - Due: {due_date}"
 with open("tasks.txt", "w") as file:
     for task in tasks:
         file.write(task + "\n")
-
-print("Task added.")
+        
         print("Task added.")
 
  elif choice == "3":
     completed = input("Task to complete: ")
 
     if completed in tasks:
-        tasks.remove(completed)
+        tasks[completed - 1] = "[DONE] " + tasks[completed - 1]
 
 with open("tasks.txt", "w") as file:
     for task in tasks:
