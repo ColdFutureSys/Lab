@@ -35,10 +35,10 @@ with open("tasks.txt", "w") as file:
         print("Task added.")
 
  elif choice == "3":
-    completed = input("Task to complete: ")
+    completed = int(input("Task number to complete: "))
 
-    if completed in tasks:
-        tasks[completed - 1] = "[DONE] " + tasks[completed - 1]
+if 0 < completed <= len(tasks):
+    tasks[completed - 1] = "[DONE] " + tasks[completed - 1]
 with open("tasks.txt", "w") as file:
     for task in tasks:
         file.write(task + "\n")
