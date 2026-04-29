@@ -23,8 +23,8 @@ while True:
     elif choice == "2":
         new_task = input("Enter task: ")
 priority = input("Priority (HIGH/MEDIUM/LOW): ")
-
-full_task = f"[{priority}] {new_task}" 
+due_date = input("Due date: ")
+full_task = f"[{priority}] {new_task} - Due: {due_date}"
         tasks.append(full_task)
 
 with open("tasks.txt", "w") as file:
