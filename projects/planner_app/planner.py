@@ -21,7 +21,11 @@ while True:
             print("-", task)
 
     elif choice == "2":
-        tasks.append(new_task)
+        new_task = input("Enter task: ")
+priority = input("Priority (HIGH/MEDIUM/LOW): ")
+
+full_task = f"[{priority}] {new_task}" 
+        tasks.append(full_task)
 
 with open("tasks.txt", "w") as file:
     for task in tasks:
