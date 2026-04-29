@@ -17,14 +17,15 @@ while True:
 
     if choice == "1":
         print("\nTasks:")
-        for task in tasks:
-            print("-", task)
+        for index, task in enumerate(tasks, start=1):
+    print(f"{index}. {task}")
 
     elif choice == "2":
         new_task = input("Enter task: ")
 priority = input("Priority (HIGH/MEDIUM/LOW): ")
+category = input("Category (WORK/PERSONAL/SCHOOL/etc): ")
 due_date = input("Due date: ")
-full_task = f"[{priority}] {new_task} - Due: {due_date}"
+full_task = f"[{category}][{priority}] {new_task} - Due: {due_date}"
         tasks.append(full_task)
 
 with open("tasks.txt", "w") as file:
@@ -38,7 +39,6 @@ with open("tasks.txt", "w") as file:
 
     if completed in tasks:
         tasks[completed - 1] = "[DONE] " + tasks[completed - 1]
-
 with open("tasks.txt", "w") as file:
     for task in tasks:
         file.write(task + "\n")
