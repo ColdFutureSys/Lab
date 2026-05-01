@@ -1,17 +1,16 @@
 import os
+import json
 
 tasks = []
 
-# Load tasks
-if os.path.exists("tasks.txt"):
-    with open("tasks.txt", "r") as file:
-        tasks = file.read().splitlines()
+if os.path.exists("tasks.json"):
+    with open("tasks.json", "r") as file:
+        tasks = json.load(file)
 
 
 def save_tasks():
-    with open("tasks.txt", "w") as file:
-        for task in tasks:
-            file.write(task + "\n")
+    with open("tasks.json", "w") as file:
+        json.dump(tasks, file, indent=4)
 
 
 def view_tasks():
@@ -78,6 +77,26 @@ def filter_tasks():
     if not found:
         print("No matching tasks.")
 
+def dashboard():
+    total = len(tasks)
+
+    completed = 0
+    high_priority = 0
+
+    for task in tasks:
+        if "[DONE]" in task:
+            completed += 1
+
+        if "[HIGH]" in task:
+            high_priority += 1
+
+    pending = total - completed
+
+    print("\n=== DASHBOARD ===")
+    print(f"Total Tasks: {total}")
+    print(f"Completed: {completed}")
+    print(f"Pending: {pending}")
+    print(f"High Priority: {high_priority}")
 
 while True:
     print("\n=== COMMAND PLANNER ===")
@@ -85,7 +104,8 @@ while True:
     print("2. Add Task")
     print("3. Complete Task")
     print("4. Filter Tasks")
-    print("5. Exit")
+    print("5. Dashboard")
+    print("6. Exit")
 
     choice = input("Choose: ")
 
@@ -102,8 +122,11 @@ while True:
         filter_tasks()
 
     elif choice == "5":
+        dashboard()
+
+    elif choice == "6":
         print("Goodbye.")
-        break
+    break
 
     else:
         print("Invalid option.")
