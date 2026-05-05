@@ -4,7 +4,9 @@ A simple command-line task manager.
 
 ## Run
 
-bash python app.py 
+```bash
+python app.py
+```
 
 ## Features
 - Add tasks
