@@ -1,29 +1,60 @@
 # Command Planner
 
-A simple command-line task manager built in Python.
+Python
+Status
+License
+
+A clean, simple command-line task manager built in Python.
+
+---
 
 ## Features
-- Add tasks with priority (Low, Medium, High)
-- Mark tasks as complete or incomplete
+
+- Add tasks with priority (Low / Medium / High)
+- Mark tasks complete or incomplete
 - Delete tasks
-- Automatically saves progress
-- Loads tasks on startup
-- Sorts tasks by priority
+- Auto-save (no data loss)
+- Load tasks on startup
+- Priority-based sorting
 
-## Example Output
-=== TASK LIST === 1. [✓] Learn Python  (High) 2. [•] Build project (Medium)
+---
 
-## How to Run
-python projects/command_planner/app.py
+## Example
+
+text === TASK LIST === 1. [✓] Learn Python  (High) 2. [•] Build project (Medium) 
+
+---
+
+## Run the App
+
+bash python projects/command_planner/app.py 
+
+---
 
 ## Project Structure
-projects/command_planner/ ├── app.py ├── tasks.json
+
+Lab/ └── projects/     └── command_planner/         ├── app.py         └── tasks.json
+
+---
+
+## Why This Exists
+
+This project was built to:
+- practice real-world Python logic
+- understand persistence (saving/loading data)
+- build a complete CLI application from scratch
+
+---
 
 ## Future Improvements
+
 - Due dates
-- Search and filtering
+- Search & filtering
 - GUI version
 - Cloud sync
 
+---
+
 ## Author
+
 Zack
