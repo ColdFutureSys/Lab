@@ -1,21 +1,29 @@
-# Lab
+# Command Planner
 
-Experimental tools, automation projects, notebooks, and system utilities.
+A simple command-line task manager built in Python.
 
-## Structure
+## Features
+- Add tasks with priority (Low, Medium, High)
+- Mark tasks as complete or incomplete
+- Delete tasks
+- Automatically saves progress
+- Loads tasks on startup
+- Sorts tasks by priority
 
-- `tools/` → Python utilities and scripts
-- `notebooks/` → experiments and prototypes
-- `docs/` → ideas and notes
-- `projects/` → larger builds
-- `assets/` → images and supporting files
+## Example Output
+=== TASK LIST === 1. [✓] Learn Python  (High) 2. [•] Build project (Medium)
 
-## Current Projects
+## How to Run
+python projects/command_planner/app.py
 
-- Password Generator
-- System Scanner
-- Tiny Game Prototype
+## Project Structure
+projects/command_planner/ ├── app.py ├── tasks.json
 
-## Goal
+## Future Improvements
+- Due dates
+- Search and filtering
+- GUI version
+- Cloud sync
 
-Build useful systems, learn aggressively, and experiment with automation and software design.
+## Author
+Zack
