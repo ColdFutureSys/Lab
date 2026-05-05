@@ -1,132 +1,109 @@
+ import json
 import os
-import json
 
-tasks = []
+# ---------- CONFIG ----------
+PRIORITY_ORDER = {"High": 3, "Medium": 2, "Low": 1}
 
-if os.path.exists("tasks.json"):
-    with open("tasks.json", "r") as file:
-        tasks = json.load(file)
-
-
-def save_tasks():
+# ---------- SAVE ----------
+def save_tasks(tasks):
     with open("tasks.json", "w") as file:
-        json.dump(tasks, file, indent=4)
+        json.dump(tasks, file, indent=2)
 
+# ---------- LOAD ----------
+tasks = []
+if os.path.exists("tasks.json"):
+    try:
+        with open("tasks.json", "r") as file:
+            data = json.load(file)
+            if isinstance(data, list):
+                if len(data) > 0 and isinstance(data[0], str):
+                    tasks = [
+                        {"name": t, "priority": "Low", "done": False}
+                        for t in data
+                    ]
+                else:
+                    tasks = data
+    except:
+        tasks = []
 
-def view_tasks():
-    print("\n=== TASKS ===")
+# ---------- DISPLAY ----------
+def show_tasks(tasks):
+    print("\n=== TASK LIST ===")
 
     if not tasks:
-        print("No tasks found.")
+        print("No tasks yet.")
         return
 
-    for index, task in enumerate(tasks, start=1):
-        print(f"{index}. {task}")
+    # Sort by priority (High → Low)
+    sorted_tasks = sorted(
+        tasks,
+        key=lambda x: PRIORITY_ORDER.get(x["priority"], 0),
+        reverse=True
+    )
 
+    for i, task in enumerate(sorted_tasks, start=1):
+        status = "✓" if task["done"] else "•"
+        print(f"{i}. [{status}] {task['name']}  ({task['priority']})")
 
-def add_task():
-    name = input("Task name: ")
-    category = input("Category: ")
-    priority = input("Priority (HIGH/MEDIUM/LOW): ")
-    due_date = input("Due date: ")
-
-    task = f"[TODO][{category}][{priority}] {name} - Due: {due_date}"
-
-    tasks.append(task)
-
-    save_tasks()
-
-    print("Task added.")
-
-
-def complete_task():
-    view_tasks()
-
-    try:
-        completed = int(input("Task number to complete: "))
-
-        if 0 < completed <= len(tasks):
-            tasks[completed - 1] = tasks[completed - 1].replace(
-                "[TODO]",
-                "[DONE]"
-            )
-
-            save_tasks()
-
-            print("Task completed.")
-
-        else:
-            print("Invalid task number.")
-
-    except:
-        print("Please enter a number.")
-
-
-def filter_tasks():
-    keyword = input("Filter keyword: ").upper()
-
-    print("\n=== FILTERED TASKS ===")
-
-    found = False
-
-    for task in tasks:
-        if keyword in task.upper():
-            print(task)
-            found = True
-
-    if not found:
-        print("No matching tasks.")
-
-def dashboard():
-    total = len(tasks)
-
-    completed = 0
-    high_priority = 0
-
-    for task in tasks:
-        if "[DONE]" in task:
-            completed += 1
-
-        if "[HIGH]" in task:
-            high_priority += 1
-
-    pending = total - completed
-
-    print("\n=== DASHBOARD ===")
-    print(f"Total Tasks: {total}")
-    print(f"Completed: {completed}")
-    print(f"Pending: {pending}")
-    print(f"High Priority: {high_priority}")
-
+# ---------- MAIN LOOP ----------
 while True:
-    print("\n=== COMMAND PLANNER ===")
-    print("1. View Tasks")
-    print("2. Add Task")
-    print("3. Complete Task")
-    print("4. Filter Tasks")
-    print("5. Dashboard")
-    print("6. Exit")
+    print("\n========================")
+    print("   COMMAND PLANNER")
+    print("========================")
+    print("1. Add Task")
+    print("2. View Tasks")
+    print("3. Toggle Complete")
+    print("4. Delete Task")
+    print("5. Exit")
 
-    choice = input("Choose: ")
+    choice = input("\nChoose option: ")
 
+    # ADD
     if choice == "1":
-        view_tasks()
+        name = input("Task name: ")
+        priority = input("Priority (Low/Medium/High): ").capitalize()
 
+        tasks.append({
+            "name": name,
+            "priority": priority,
+            "done": False
+        })
+
+        save_tasks(tasks)
+        print("✓ Task added.")
+
+    # VIEW
     elif choice == "2":
-        add_task()
+        show_tasks(tasks)
 
+    # TOGGLE COMPLETE
     elif choice == "3":
-        complete_task()
+        show_tasks(tasks)
 
+        try:
+            num = int(input("Task number: "))
+            tasks[num - 1]["done"] = not tasks[num - 1]["done"]
+            save_tasks(tasks)
+            print("✓ Updated.")
+        except:
+            print("Invalid input.")
+
+    # DELETE
     elif choice == "4":
-        filter_tasks()
+        show_tasks(tasks)
 
+        try:
+            num = int(input("Task number: "))
+            removed = tasks.pop(num - 1)
+            save_tasks(tasks)
+            print(f"Deleted: {removed['name']}")
+        except:
+            print("Invalid input.")
+
+    # EXIT
     elif choice == "5":
-        dashboard()
-
-    elif choice == "6":
         print("Goodbye.")
-    break
+        break
 
     else:
         print("Invalid option.")
