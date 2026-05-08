@@ -53,3 +53,10 @@ This project demonstrates:
 ## Author
 
 Zack
+## GUI Version
+
+A graphical interface is also included:
+
+bash id="jlwm71" python gui_app.py 
+
+The GUI version uses buttons and a task list interface instead of command-line input.
