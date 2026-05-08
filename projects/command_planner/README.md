@@ -17,7 +17,11 @@ A simple command-line task manager built in Python.
 
 ## Example
 
-text === TASK LIST === 1. [✓] Learn Python (High) 2. [•] Build project (Medium) 
+```text
+=== TASK LIST ===
+1. [✓] Learn Python (High)
+2. [•] Build project (Medium)
+``` 
 
 ---
 
