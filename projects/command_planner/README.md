@@ -25,7 +25,9 @@ text === TASK LIST === 1. [✓] Learn Python (High) 2. [•] Build project (Medi
 
 From this folder:
 
-bash python app.py 
+```bash
+python app.py
+```
 
 ---
 
