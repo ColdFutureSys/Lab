@@ -40,4 +40,5 @@ Features:
 - Copy combined output
 ## Preview
 
-![Stack GUI](/assets/IMG_1006.png)
+![Stack GUI](/assets/IMG_1013.png)
+
