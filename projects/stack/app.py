@@ -8,8 +8,9 @@ if os.path.exists(FILE):
 
 else:
     stack_items = []
-    def save_stack():
-save_stack()
+
+def save_stack():
+
     with open(FILE, "w") as file:
         json.dump(stack_items, file, indent=2)
 
@@ -31,6 +32,7 @@ while True:
         item = input("Enter text: ")
 
         stack_items.append(item)
+        save_stack()
 
         print("Added.")
 
@@ -55,6 +57,7 @@ while True:
     elif choice == "4":
 
         stack_items.clear()
+        save_stack()
 
         print("Stack cleared.")
 
