@@ -1,4 +1,17 @@
-stack_items = []
+import json
+import os
+FILE = "stack.json"
+if os.path.exists(FILE):
+
+    with open(FILE, "r") as file:
+        stack_items = json.load(file)
+
+else:
+    stack_items = []
+    def save_stack():
+save_stack()
+    with open(FILE, "w") as file:
+        json.dump(stack_items, file, indent=2)
 
 print("=== STACK ===")
 print("Multi-item clipboard organizer")
