@@ -23,3 +23,18 @@ Then copy everything at once.
 ## Status
 
 Planning phase.
+## GUI Version
+
+Stack also includes a graphical desktop interface built with Tkinter.
+
+Run the GUI version:
+
+```bash
+python gui_app.py
+```
+
+Features:
+- Add items with buttons
+- View stack in a list
+- Delete selected items
+- Copy combined output
