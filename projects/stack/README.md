@@ -38,3 +38,6 @@ Features:
 - View stack in a list
 - Delete selected items
 - Copy combined output
+## Preview
+
+![Stack GUI](../../assets/IMG_1006.png)
