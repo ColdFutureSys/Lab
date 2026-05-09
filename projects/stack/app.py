@@ -8,7 +8,8 @@ while True:
     print("\n1. Add Item")
     print("2. View Stack")
     print("3. Copy All")
-    print("4. Exit")
+    print("4. Clear Stack")
+    print("5. Exit")
 
     choice = input("\nChoose option: ")
 
@@ -40,8 +41,14 @@ while True:
 
     elif choice == "4":
 
+        stack_items.clear()
+
+        print("Stack cleared.")
+
+    elif choice == "5":
+
         print("Goodbye.")
         break
 
-    else:
+        else:
         print("Invalid option.")
