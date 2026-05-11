@@ -3,6 +3,7 @@ import os
 
 FILE = "stack.json"
 
+# Load saved stack
 if os.path.exists(FILE):
     with open(FILE, "r") as file:
         stack_items = json.load(file)
@@ -31,6 +32,9 @@ while True:
 
         stack_items.append(item)
 
+        with open(FILE, "w") as file:
+            json.dump(stack_items, file)
+
         print("Added.")
 
     # VIEW STACK
@@ -48,10 +52,14 @@ while True:
     # COPY ALL
     elif choice == "3":
 
-        combined = "\n".join(stack_items)
+        if not stack_items:
+            print("Stack is empty.")
 
-        print("\n=== COPIED TEXT ===")
-        print(combined)
+        else:
+            combined = "\n".join(stack_items)
+
+            print("\n=== COPIED TEXT ===")
+            print(combined)
 
     # COPY ONE ITEM
     elif choice == "4":
@@ -93,6 +101,9 @@ while True:
 
                 removed = stack_items.pop(number - 1)
 
+                with open(FILE, "w") as file:
+                    json.dump(stack_items, file)
+
                 print(f"Deleted: {removed}")
 
             except:
@@ -102,6 +113,9 @@ while True:
     elif choice == "6":
 
         stack_items.clear()
+
+        with open(FILE, "w") as file:
+            json.dump(stack_items, file)
 
         print("Stack cleared.")
 
