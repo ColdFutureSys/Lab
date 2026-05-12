@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Stack</title>
+
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+    }
+
+    .app {
+      max-width: 400px;
+      margin: auto;
+    }
+
+    input {
+      width: 100%;
+      padding: 12px;
+      margin-bottom: 10px;
+      box-sizing: border-box;
+    }
+
+    button {
+      width: 100%;
+      padding: 12px;
+      margin-bottom: 10px;
+    }
+
+    li {
+      padding: 10px;
+      border: 1px solid #ccc;
+      margin-bottom: 5px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="app">
+
+    <h1>Stack</h1>
+
+    <input
+      id="itemInput"
+      type="text"
+      placeholder="Enter text"
+    />
+
+    <button onclick="addItem()">
+      Add Item
+    </button>
+
+    <button onclick="copyAll()">
+      Copy All
+    </button>
+
+    <ul id="stackList"></ul>
+
+  </div>
+
+  <script>
+
+    let stack =
+      JSON.parse(
+        localStorage.getItem("stack")
+      ) || [];
+
+    renderList();
+
+    function saveStack() {
+
+      localStorage.setItem(
+        "stack",
+        JSON.stringify(stack)
+      );
+    }
+
+    function addItem() {
+
+      const input =
+        document.getElementById("itemInput");
+
+      const text =
+        input.value.trim();
+
+      if (!text) return;
+
+      stack.push(text);
+
+      saveStack();
+
+      input.value = "";
+
+      renderList();
+    }
+
+    function renderList() {
+
+      const list =
+        document.getElementById("stackList");
+
+      list.innerHTML = "";
+
+      stack.forEach((item, index) => {
+
+        const li =
+          document.createElement("li");
+
+        const textSpan =
+          document.createElement("span");
+
+        textSpan.textContent =
+          item;
+
+        textSpan.style.cursor =
+          "pointer";
+
+        textSpan.onclick = () => {
+
+          navigator.clipboard
+            .writeText(item);
+
+          alert(
+            `"${item}" copied`
+          );
+        };
+
+        const deleteBtn =
+          document.createElement("button");
+
+        deleteBtn.textContent =
+          "Delete";
+
+        deleteBtn.onclick = () => {
+
+          stack.splice(index, 1);
+
+          saveStack();
+
+          renderList();
+        };
+
+        li.appendChild(textSpan);
+
+        li.appendChild(deleteBtn);
+
+        list.appendChild(li);
+      });
+    }
+
+    function copyAll() {
+
+      const combined =
+        stack.join("\n");
+
+      navigator.clipboard
+        .writeText(combined);
+
+      alert("Copied!");
+    }
+
+  </script>
+
+</body>
+</html>
