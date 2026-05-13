@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Zack's Stack Bank</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <style>
+    body {
+      font-family: Arial;
+      background: #111;
+      color: white;
+      text-align: center;
+      padding: 20px;
+    }
+
+    textarea {
+      width: 90%;
+      height: 120px;
+      margin: 10px 0;
+      border-radius: 10px;
+      padding: 10px;
+      font-size: 16px;
+    }
+
+    button {
+      padding: 15px;
+      margin: 8px;
+      border: none;
+      border-radius: 10px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    .box {
+      background: #222;
+      padding: 15px;
+      border-radius: 15px;
+      margin-top: 20px;
+    }
+  </style>
+</head>
+
+<body>
+
+<h1>Stack Bank</h1>
+<p>Save copied text and combine it later.</p>
+
+<textarea id="input" placeholder="Paste text here..."></textarea>
+<br>
+
+<button onclick="addText()">Add To Stack</button>
+<button onclick="copyAll()">Copy All</button>
+<button onclick="clearStack()">Clear</button>
+
+<div class="box">
+  <h3>Your Stack</h3>
+  <div id="stack"></div>
+</div>
+
+<script>
+  let stack = JSON.parse(localStorage.getItem("stack")) || [];
+
+  function save() {
+    localStorage.setItem("stack", JSON.stringify(stack));
+  }
+
+  function showStack() {
+    document.getElementById("stack").innerHTML =
+      stack.map(item => `<p>${item}</p>`).join("");
+  }
+
+  function addText() {
+    let text = document.getElementById("input").value;
+
+    if (!text.trim()) return;
+
+    stack.push(text);
+    save();
+    showStack();
+
+    document.getElementById("input").value = "";
+  }
+
+  function copyAll() {
+    navigator.clipboard.writeText(stack.join("\n"));
+    alert("Copied!");
+  }
+
+  function clearStack() {
+    stack = [];
+    save();
+    showStack();
+  }
+
+  showStack();
+</script>
+
+</body>
+</html>
