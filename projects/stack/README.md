@@ -1,44 +1,41 @@
 # Stack
 
-A multi-item clipboard organizer for fast form filling and repetitive workflows.
+Stack is a clipboard holding bank for saving copied text and reusable phrases.
 
-## Idea
+Built for repetitive workflows such as:
+- forms
+- applications
+- case numbers
+- addresses
+- reusable text
+- repetitive admin work
 
-Stack allows users to save multiple pieces of copied text and combine them into a single paste action.
+## Features
+
+- Quick Add Clipboard
+- Save copied text
+- Copy one item
+- Copy entire stack
+- Delete items
+- Saved phrases
+- Auto-save memory
+- Browser/iPad compatible
+
+## Use Case
+
+Copy text from anywhere, save multiple pieces into Stack, then paste everything together later.
 
 Example:
-- name
-- date of birth
-- address
 
-Then copy everything at once.
+Name  
+Address  
+DOB  
+Case Number
 
-## Planned Features
+Save them during the day, then copy all at once when filling out forms.
 
-- Create stacks
-- Save text snippets
-- Copy all items together
-- Simple mobile-friendly interface
+## Live App
 
-## Status
+Use Stack here:
 
-Planning phase.
-## GUI Version
-
-Stack also includes a graphical desktop interface built with Tkinter.
-
-Run the GUI version:
-
-```bash
-python gui_app.py
-```
-
-Features:
-- Add items with buttons
-- View stack in a list
-- Delete selected items
-- Copy combined output
-## Preview
-
-![Stack GUI](/assets/IMG_1013.png)
-
+https://coldfuturesys.github.io/Lab/
