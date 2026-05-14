@@ -13,19 +13,23 @@
       margin: 0;
     }
 
-    h1 {
+    h1, h2 {
       text-align: center;
     }
 
-    textarea {
+    textarea,
+    input {
       width: 100%;
-      height: 100px;
       border-radius: 12px;
       border: none;
       padding: 12px;
       font-size: 16px;
       box-sizing: border-box;
       margin-bottom: 10px;
+    }
+
+    textarea {
+      height: 100px;
     }
 
     button {
@@ -66,14 +70,19 @@
 
 <h1>Stack Bank</h1>
 
-<textarea id="input" placeholder="Paste copied text here..."></textarea>
+<textarea
+  id="input"
+  placeholder="Paste copied text here..."
+></textarea>
 
 <button onclick="pasteClipboard()">
 📋 Paste Clipboard
 </button>
+
 <button onclick="quickAddClipboard()">
 ⚡ Quick Add Clipboard
 </button>
+
 <button onclick="addText()">
 ➕ Add To Stack
 </button>
@@ -88,65 +97,191 @@
 
 <div id="stack"></div>
 
+<hr>
+
+<h2>Saved Phrases</h2>
+
+<input
+  id="savedTitle"
+  placeholder="Phrase name"
+/>
+
+<textarea
+  id="savedText"
+  placeholder="Save text for later..."
+></textarea>
+
+<button onclick="savePhrase()">
+⭐ Save Phrase
+</button>
+
+<div id="savedPhrases"></div>
+
 <script>
-let stack = JSON.parse(localStorage.getItem("stack")) || [];
+
+let stack =
+  JSON.parse(
+    localStorage.getItem("stack")
+  ) || [];
+
+let savedPhrases =
+  JSON.parse(
+    localStorage.getItem(
+      "savedPhrases"
+    )
+  ) || [];
 
 function saveStack() {
-  localStorage.setItem("stack", JSON.stringify(stack));
+  localStorage.setItem(
+    "stack",
+    JSON.stringify(stack)
+  );
+}
+
+function saveSavedPhrases() {
+  localStorage.setItem(
+    "savedPhrases",
+    JSON.stringify(savedPhrases)
+  );
 }
 
 function renderStack() {
-  const container = document.getElementById("stack");
+
+  const container =
+    document.getElementById("stack");
+
   container.innerHTML = "";
 
   stack.forEach((item, index) => {
+
     container.innerHTML += `
       <div class="stack-item">
         ${item}
 
         <div class="item-buttons">
-          <button class="small-btn"
+
+          <button
+            class="small-btn"
             onclick="copyOne(${index})">
             Copy
           </button>
 
-          <button class="small-btn"
+          <button
+            class="small-btn"
             onclick="deleteItem(${index})">
             Delete
           </button>
+
         </div>
       </div>
     `;
   });
 }
 
-async function quickAddClipboard() {
-  try {
-    const text =
-      await navigator.clipboard.readText();
+function renderSavedPhrases() {
 
-    if (!text.trim()) {
-      alert("Clipboard is empty.");
-      return;
+  const container =
+    document.getElementById(
+      "savedPhrases"
+    );
+
+  container.innerHTML = "";
+
+  savedPhrases.forEach(
+    (phrase, index) => {
+
+      container.innerHTML += `
+      <div class="stack-item">
+
+        <strong>
+          ${phrase.title}
+        </strong>
+
+        <br><br>
+
+        ${phrase.text}
+
+        <div class="item-buttons">
+
+          <button
+            class="small-btn"
+            onclick="
+              navigator.clipboard
+              .writeText(
+                \`${phrase.text}\`
+              )
+            ">
+            Copy
+          </button>
+
+          <button
+            class="small-btn"
+            onclick="
+              deletePhrase(${index})
+            ">
+            Delete
+          </button>
+
+        </div>
+
+      </div>
+      `;
     }
+  );
+}
+
+async function pasteClipboard() {
+
+  try {
+
+    const text =
+      await navigator.clipboard
+        .readText();
+
+    document.getElementById(
+      "input"
+    ).value = text;
+
+  } catch {
+
+    alert(
+      "Clipboard blocked."
+    );
+  }
+}
+
+async function quickAddClipboard() {
+
+  try {
+
+    const text =
+      await navigator.clipboard
+        .readText();
+
+    if (!text.trim()) return;
 
     stack.push(text);
 
     saveStack();
     renderStack();
 
-    alert("Added to stack.");
-
   } catch {
-    alert("Clipboard blocked.");
+
+    alert(
+      "Clipboard blocked."
+    );
   }
 }
 
 function addText() {
-  const input =
-    document.getElementById("input");
 
-  const text = input.value.trim();
+  const input =
+    document.getElementById(
+      "input"
+    );
+
+  const text =
+    input.value.trim();
 
   if (!text) return;
 
@@ -158,32 +293,76 @@ function addText() {
   input.value = "";
 }
 
-function copyAll() {
-  navigator.clipboard.writeText(
-    stack.join("\n\n")
-  );
+function savePhrase() {
 
-  alert("Entire stack copied.");
+  const title =
+    document.getElementById(
+      "savedTitle"
+    ).value.trim();
+
+  const text =
+    document.getElementById(
+      "savedText"
+    ).value.trim();
+
+  if (!title || !text)
+    return;
+
+  savedPhrases.push({
+    title,
+    text
+  });
+
+  saveSavedPhrases();
+
+  renderSavedPhrases();
+
+  document.getElementById(
+    "savedTitle"
+  ).value = "";
+
+  document.getElementById(
+    "savedText"
+  ).value = "";
+}
+
+function copyAll() {
+
+  navigator.clipboard
+    .writeText(
+      stack.join("\n\n")
+    );
 }
 
 function copyOne(index) {
-  navigator.clipboard.writeText(
-    stack[index]
-  );
 
-  alert("Copied.");
+  navigator.clipboard
+    .writeText(
+      stack[index]
+    );
 }
 
 function deleteItem(index) {
+
   stack.splice(index, 1);
 
   saveStack();
   renderStack();
 }
 
+function deletePhrase(index) {
+
+  savedPhrases.splice(index, 1);
+
+  saveSavedPhrases();
+  renderSavedPhrases();
+}
+
 function clearStack() {
-  if (!confirm("Clear everything?"))
-    return;
+
+  if (!confirm(
+    "Clear stack?"
+  )) return;
 
   stack = [];
 
@@ -192,6 +371,8 @@ function clearStack() {
 }
 
 renderStack();
+renderSavedPhrases();
+
 </script>
 
 </body>
