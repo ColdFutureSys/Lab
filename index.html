@@ -71,7 +71,9 @@
 <button onclick="pasteClipboard()">
 📋 Paste Clipboard
 </button>
-
+<button onclick="quickAddClipboard()">
+⚡ Quick Add Clipboard
+</button>
 <button onclick="addText()">
 ➕ Add To Stack
 </button>
@@ -118,16 +120,25 @@ function renderStack() {
   });
 }
 
-async function pasteClipboard() {
+async function quickAddClipboard() {
   try {
     const text =
       await navigator.clipboard.readText();
 
-    document.getElementById("input").value =
-      text;
+    if (!text.trim()) {
+      alert("Clipboard is empty.");
+      return;
+    }
+
+    stack.push(text);
+
+    saveStack();
+    renderStack();
+
+    alert("Added to stack.");
 
   } catch {
-    alert("Clipboard blocked. Paste manually.");
+    alert("Clipboard blocked.");
   }
 }
 
