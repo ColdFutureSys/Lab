@@ -30,3 +30,4 @@ Task manager built in Python.
 Small automation and system ideas.
 
 Testing GitHub achievement
+Learning GitHub one step at a time.
